@@ -110,7 +110,7 @@
                             No Image
                         </div>
                     @endif
-                    <div class="recipe-badge">Resep</div>
+                    <div class="recipe-badge">{{ ucfirst($resep->kategori) }}</div>
                 </a>
                 <div class="recipe-info">
                     <h3 class="recipe-name">{{ $resep->nama }}</h3>

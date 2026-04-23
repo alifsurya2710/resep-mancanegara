@@ -202,7 +202,7 @@
 <body>
     <header>
         <div style="display: flex; align-items: center; gap: 15px;">
-            <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 45px; height: 45px; object-fit: cover; border-radius: 50%; border: 2px solid #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
             <h1>Admin Panel</h1>
         </div>
         <nav>
@@ -225,7 +225,7 @@
     </main>
 
     <footer style="text-align: center; padding: 40px 0; color: #aaa; font-size: 0.85rem; font-weight: 600;">
-        &copy; {{ date('Y') }} Resep Mancanegara. Development by Moch Alif Surya Ramadhan
+        &copy; {{ date('Y') }} Resep Mancanegara. Development by <a href="https://www.instagram.com/_mochalifsurya14_/" target="_blank" style="color: #ff69b4; text-decoration: none; font-weight: 700;">Moch Alif Surya Ramadhan</a>
     </footer>
 
     @yield('scripts')

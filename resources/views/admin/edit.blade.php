@@ -150,6 +150,15 @@
         </div>
 
         <div class="form-group">
+            <label for="kategori">Kategori</label>
+            <select id="kategori" name="kategori" class="form-control" required>
+                <option value="makanan" {{ old('kategori', $resep->kategori) == 'makanan' ? 'selected' : '' }}>Makanan</option>
+                <option value="minuman" {{ old('kategori', $resep->kategori) == 'minuman' ? 'selected' : '' }}>Minuman</option>
+                <option value="dessert" {{ old('kategori', $resep->kategori) == 'dessert' ? 'selected' : '' }}>Dessert</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="cara_membuat">Cara Membuat</label>
             <textarea id="cara_membuat" name="cara_membuat" class="form-control" required>{{ old('cara_membuat', $resep->cara_membuat) }}</textarea>
         </div>

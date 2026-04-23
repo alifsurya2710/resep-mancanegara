@@ -63,21 +63,51 @@
 
     header h1 {
       font-family: 'Outfit', sans-serif;
-      font-size: 3rem;
-      font-weight: 700;
-      letter-spacing: -1px;
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: -1.5px;
       position: relative;
       z-index: 1;
-      text-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      margin-bottom: 5px;
     }
 
     header p {
-      font-size: 1.1rem;
-      opacity: 0.9;
-      margin-top: 10px;
+      font-size: 1.2rem;
+      opacity: 0.95;
       font-weight: 500;
       position: relative;
       z-index: 1;
+      letter-spacing: 0.5px;
+    }
+
+    .brand-logo {
+      position: absolute;
+      top: 30px;
+      left: 30px;
+      width: 90px;
+      height: 90px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      border: 3px solid rgba(255, 255, 255, 0.5);
+      z-index: 10;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      overflow: hidden;
+    }
+
+    .brand-logo:hover {
+      transform: scale(1.1) rotate(5deg);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+      border-color: white;
+    }
+
+    .brand-logo img {
+      width: 80%;
+      height: auto;
     }
 
     main {
@@ -163,6 +193,12 @@
       header h1 {
         font-size: 2.2rem;
       }
+      .brand-logo {
+        width: 60px;
+        height: 60px;
+        top: 15px;
+        left: 15px;
+      }
     }
   </style>
 
@@ -171,7 +207,9 @@
 <body>
 
   <header>
-    <img src="{{ asset('images/logo.png') }}" alt="Logo Resep Mancanegara" style="width: 150px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));">
+    <a href="{{ route('home') }}" class="brand-logo">
+        <img src="{{ asset('images/logo.png') }}" alt="Logo">
+    </a>
     <h1>Resep Mancanegara</h1>
     <p>Temukan cita rasa dunia di dapur Anda</p>
   </header>
@@ -183,7 +221,7 @@
   <footer>
     &copy; {{ date('Y') }} Resep Mancanegara. Crafted with Passion 💖
     <div style="margin-top: 5px; display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
-        <span style="font-size: 0.8rem; opacity: 0.7;">Development by Moch Alif Surya Ramadhan</span>
+        <span style="font-size: 0.8rem; opacity: 0.7;">Development by <a href="https://www.instagram.com/_mochalifsurya14_/" target="_blank" style="color: inherit; text-decoration: underline; font-weight: 600;">Moch Alif Surya Ramadhan</a></span>
         <span style="opacity: 0.3;">|</span>
         <a href="{{ route('admin.login') }}" style="font-size: 0.8rem; opacity: 0.6; font-weight: 500; color: var(--accent); display: flex; align-items: center; gap: 5px;">
             <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>

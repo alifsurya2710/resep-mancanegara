@@ -21,6 +21,7 @@
                     <th style="width: 60px; text-align: center;">No</th>
                     <th style="width: 120px;">Gambar</th>
                     <th>Nama Makanan</th>
+                    <th>Kategori</th>
                     <th>Asal Negara</th>
                     <th>Pencipta</th>
                     <th style="width: 180px; text-align: center;">Aksi</th>
@@ -39,6 +40,23 @@
                         </td>
                         <td>
                             <div style="font-weight: 700; color: var(--text-main);">{{ $resep->nama }}</div>
+                        </td>
+                        <td>
+                            @php
+                                $bgColor = match($resep->kategori) {
+                                    'makanan' => '#fff0f6',
+                                    'minuman' => '#e6fffa',
+                                    'dessert' => '#fff9db',
+                                    default => '#f5f5f5'
+                                };
+                                $textColor = match($resep->kategori) {
+                                    'makanan' => '#d63384',
+                                    'minuman' => '#2c7a7b',
+                                    'dessert' => '#f08c00',
+                                    default => '#888'
+                                };
+                            @endphp
+                            <span style="background: {{ $bgColor }}; color: {{ $textColor }}; padding: 4px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 800; text-transform: uppercase;">{{ $resep->kategori }}</span>
                         </td>
                         <td>
                             <span style="background: #f0f4ff; color: #556ee6; padding: 4px 12px; border-radius: 8px; font-size: 0.85rem; font-weight: 600;">{{ $resep->asal_negara }}</span>
@@ -61,7 +79,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" style="text-align: center; padding: 40px; color: #aaa;">
+                        <td colspan="7" style="text-align: center; padding: 40px; color: #aaa;">
                             <div style="font-size: 3rem; margin-bottom: 10px;">🍳</div>
                             Belum ada resep ditambahkan.
                         </td>

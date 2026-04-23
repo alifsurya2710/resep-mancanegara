@@ -13,5 +13,6 @@ class Resep extends Model
         'cara_membuat',
         'link_youtube',
         'gambar',
+        'kategori',
     ];
 }

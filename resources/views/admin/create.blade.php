@@ -140,6 +140,16 @@
         </div>
 
         <div class="form-group">
+            <label for="kategori">Kategori</label>
+            <select id="kategori" name="kategori" class="form-control" required>
+                <option value="" disabled {{ old('kategori') ? '' : 'selected' }}>-- Pilih Kategori --</option>
+                <option value="makanan" {{ old('kategori') == 'makanan' ? 'selected' : '' }}>Makanan</option>
+                <option value="minuman" {{ old('kategori') == 'minuman' ? 'selected' : '' }}>Minuman</option>
+                <option value="dessert" {{ old('kategori') == 'dessert' ? 'selected' : '' }}>Dessert</option>
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="cara_membuat">Cara Membuat</label>
             <textarea id="cara_membuat" name="cara_membuat" class="form-control" placeholder="Tuliskan langkah-langkah memasak di sini..." required>{{ old('cara_membuat') }}</textarea>
         </div>

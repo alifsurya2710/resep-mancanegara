@@ -189,17 +189,65 @@
       font-size: 0.9rem;
     }
 
+    .brand-container {
+      position: fixed;
+      top: 40px;
+      left: 40px;
+      width: 100px;
+      height: 100px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 15px 35px rgba(255, 105, 180, 0.25);
+      border: 4px solid rgba(255, 255, 255, 0.8);
+      z-index: 1000;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      overflow: hidden;
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+
+    .brand-container:hover {
+      transform: scale(1.1) rotate(10deg);
+      box-shadow: 0 20px 45px rgba(255, 105, 180, 0.4);
+      border-color: white;
+    }
+
+    .brand-container img {
+      width: 85%;
+      height: auto;
+      transition: transform 0.4s ease;
+    }
+
+    .brand-container:hover img {
+      transform: scale(1.1);
+    }
+
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
     @media (max-width: 480px) {
       .login-card {
         padding: 40px 25px;
       }
+      .brand-container {
+        width: 70px;
+        height: 70px;
+        top: 20px;
+        left: 20px;
+      }
     }
   </style>
 </head>
-<body>
+  <a href="{{ route('home') }}" class="brand-container">
+    <img src="{{ asset('images/logo.png') }}" alt="Logo">
+  </a>
+
   <div class="login-card">
     <div class="login-header">
-      <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 120px; height: auto; margin-bottom: 20px;">
       <h2>Admin Login</h2>
       <p>Masuk ke dashboard pengelola resep</p>
     </div>

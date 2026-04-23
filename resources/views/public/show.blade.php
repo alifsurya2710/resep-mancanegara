@@ -46,7 +46,7 @@
 
     .recipe-info-bar {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
         margin-bottom: 40px;
     }
@@ -181,6 +181,13 @@
             <div class="info-content">
                 <label>Pencipta</label>
                 <span>{{ $resep->pencipta }}</span>
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-icon">🏷️</div>
+            <div class="info-content">
+                <label>Kategori</label>
+                <span>{{ ucfirst($resep->kategori) }}</span>
             </div>
         </div>
     </div>

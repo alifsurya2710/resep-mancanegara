@@ -29,6 +29,7 @@ class RecipeController extends Controller
         'cara_membuat' => 'required|string',
         'link_youtube' => 'nullable|url',
         'gambar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        'kategori' => 'required|string|in:makanan,minuman,dessert',
     ]);
 
     // ✅ Upload gambar ke folder storage/app/public/reseps
@@ -59,6 +60,7 @@ class RecipeController extends Controller
         'cara_membuat' => 'required|string',
         'link_youtube' => 'nullable|url',
         'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        'kategori' => 'required|string|in:makanan,minuman,dessert',
     ]);
 
     if ($request->hasFile('gambar')) {
