@@ -4,11 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>@yield('title', 'Resep Mancanegara')</title>
+  <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --primary: #ff69b4;
+      --primary-dark: #d63384;
+      --primary-light: #ffaad4;
+      --accent: #6a1b4d;
+      --bg-gradient: linear-gradient(135deg, #ffc1dc 0%, #ff8bb3 100%);
+      --glass: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(255, 255, 255, 0.4);
+    }
+
     * {
       box-sizing: border-box;
       margin: 0;
@@ -16,87 +29,139 @@
     }
 
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, #ffc1dc, #ff8bb3);
-      color: #6a1b4d;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-gradient);
+      background-attachment: fixed;
+      color: var(--accent);
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      padding: 20px;
+      line-height: 1.6;
     }
 
     header {
       text-align: center;
-      background: linear-gradient(to right, #ff69b4, #ff85c1);
+      background: linear-gradient(to right, var(--primary), #ff85c1);
       color: white;
-      padding: 25px 20px;
-      border-radius: 20px;
-      box-shadow: 0 6px 16px rgba(255, 105, 180, 0.4);
-      margin-bottom: 30px;
+      padding: 40px 20px;
+      margin-bottom: 40px;
+      box-shadow: 0 10px 30px rgba(255, 105, 180, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -20%;
+      width: 140%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+      transform: rotate(-15deg);
     }
 
     header h1 {
-      font-size: 2.2rem;
-      font-weight: 600;
-      letter-spacing: 1px;
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 700;
+      letter-spacing: -1px;
+      position: relative;
+      z-index: 1;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    header p {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      margin-top: 10px;
+      font-weight: 500;
+      position: relative;
+      z-index: 1;
     }
 
     main {
       flex: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      background: rgba(255, 240, 245, 0.85);
-      backdrop-filter: blur(6px);
-      padding: 30px 40px;
-      border-radius: 24px;
-      box-shadow: 0 10px 25px rgba(255, 105, 180, 0.25);
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto 40px;
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 40px;
+      border-radius: 32px;
+      border: 1px solid var(--glass-border);
+      box-shadow: 0 20px 50px rgba(255, 105, 180, 0.15);
+      animation: slideUp 0.6s ease-out;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     footer {
       text-align: center;
-      margin-top: 40px;
-      padding: 15px 0;
-      font-size: 0.95rem;
-      color: #a8326f;
-      border-top: 2px dashed #ffaad4;
+      padding: 30px 0;
+      font-size: 0.9rem;
+      color: var(--accent);
+      font-weight: 600;
+      opacity: 0.8;
     }
 
     a {
-      color: #d63384;
+      color: var(--primary-dark);
       text-decoration: none;
       font-weight: 600;
-      transition: all 0.3s ease;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     a:hover {
-      color: #a8326f;
-      text-decoration: underline;
+      color: var(--accent);
     }
 
     .btn-pink {
-      background-color: #ff69b4;
+      background: var(--primary);
       color: white;
-      padding: 8px 16px;
+      padding: 12px 24px;
       border: none;
-      border-radius: 30px;
+      border-radius: 16px;
       font-weight: 600;
       cursor: pointer;
-      box-shadow: 0 3px 8px rgba(255, 105, 180, 0.3);
-      transition: background-color 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+      transition: all 0.3s ease;
+      display: inline-block;
+      text-align: center;
     }
 
     .btn-pink:hover {
-      background-color: #ff4f9d;
-      transform: scale(1.03);
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(255, 105, 180, 0.4);
     }
 
-    @media (max-width: 600px) {
-      main {
-        padding: 20px;
-      }
+    /* Container for cards */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+    }
 
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      main {
+        padding: 25px 20px;
+        border-radius: 24px;
+      }
+      header {
+        padding: 30px 15px;
+        border-radius: 0 0 24px 24px;
+        margin: -10px -10px 30px -10px;
+      }
       header h1 {
-        font-size: 1.7rem;
+        font-size: 2.2rem;
       }
     }
   </style>
@@ -106,7 +171,9 @@
 <body>
 
   <header>
+    <img src="{{ asset('images/logo.png') }}" alt="Logo Resep Mancanegara" style="width: 150px; height: auto; margin-bottom: 20px; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.1));">
     <h1>Resep Mancanegara</h1>
+    <p>Temukan cita rasa dunia di dapur Anda</p>
   </header>
 
   <main>
@@ -114,7 +181,15 @@
   </main>
 
   <footer>
-    &copy; {{ date('Y') }} Resep Mancanegara. Dibuat dengan ❤️
+    &copy; {{ date('Y') }} Resep Mancanegara. Crafted with Passion 💖
+    <div style="margin-top: 5px; display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <span style="font-size: 0.8rem; opacity: 0.7;">Development by Moch Alif Surya Ramadhan</span>
+        <span style="opacity: 0.3;">|</span>
+        <a href="{{ route('admin.login') }}" style="font-size: 0.8rem; opacity: 0.6; font-weight: 500; color: var(--accent); display: flex; align-items: center; gap: 5px;">
+            <svg viewBox="0 0 24 24" style="width: 14px; height: 14px; fill: currentColor;"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zM9 6c0-1.66 1.34-3 3-3s3 1.34 3 3v2H9V6zm9 14H6V10h12v10zm-6-3c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2z"/></svg>
+            Login
+        </a>
+    </div>
   </footer>
 
   @yield('scripts')

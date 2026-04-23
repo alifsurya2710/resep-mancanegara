@@ -1,199 +1,182 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Tambah Resep Baru</title>
+@extends('layouts.app')
+
+@section('title', 'Tambah Resep Baru')
+
+@section('styles')
 <style>
-    /* Reset sederhana */
-    * {
-        box-sizing: border-box;
-    }
-    body {
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #ffd1e8 0%, #ff9ac1 100%);
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 30px 15px;
-        margin: 0;
-        color: #5a2a4a;
-    }
-    .form-container {
-        background-color: #fff0f6;
-        padding: 35px 40px 40px 40px;
-        border-radius: 12px;
-        box-shadow: 0 12px 25px rgba(255, 105, 150, 0.25);
-        width: 100%;
-        max-width: 450px;
-        transition: box-shadow 0.3s ease;
-    }
-    .form-container:hover {
-        box-shadow: 0 16px 35px rgba(255, 105, 150, 0.4);
-    }
-    h2 {
-        margin-bottom: 30px;
-        color: #d43e6f;
-        font-weight: 800;
-        font-size: 28px;
-        text-align: center;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        user-select: none;
-    }
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        color: #a63d68;
-        letter-spacing: 0.03em;
-        font-size: 15px;
-        user-select: none;
-    }
-    input[type="text"],
-    input[type="url"],
-    textarea,
-    input[type="file"] {
-        width: 100%;
-        padding: 12px 14px;
-        margin-bottom: 22px;
-        border: 2px solid #f7c6d0;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: 500;
-        color: #5a2a4a;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        resize: vertical;
-        font-family: inherit;
-    }
-    input[type="text"]:focus,
-    input[type="url"]:focus,
-    textarea:focus,
-    input[type="file"]:focus {
-        border-color: #d43e6f;
-        box-shadow: 0 0 8px rgba(212, 62, 111, 0.4);
-        outline: none;
-    }
-    textarea {
-        min-height: 120px;
-        line-height: 1.5;
+    .form-card {
+        max-width: 800px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 32px;
+        padding: 40px;
+        box-shadow: 0 20px 50px rgba(255, 105, 180, 0.1);
     }
 
-    /* Tombol Simpan dengan ripple effect */
-    button {
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .form-group label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 15px 20px;
+        border-radius: 16px;
+        border: 2px solid #fff0f6;
+        background: #fafafa;
+        font-family: inherit;
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--text-main);
+        transition: all 0.3s ease;
+    }
+
+    .form-control:focus {
+        outline: none;
+        border-color: var(--primary);
+        background: white;
+        box-shadow: 0 0 0 4px rgba(255, 105, 180, 0.1);
+    }
+
+    textarea.form-control {
+        min-height: 150px;
+        resize: vertical;
+    }
+
+    .file-input-wrapper {
         position: relative;
         overflow: hidden;
+        display: inline-block;
         width: 100%;
-        padding: 14px 0;
-        font-size: 17px;
-        font-weight: 700;
-        color: white;
-        border: none;
-        border-radius: 12px;
-        background-color: #d43e6f;
-        cursor: pointer;
-        box-shadow: 0 6px 20px rgba(212, 62, 111, 0.6);
-        transition: background-color 0.3s ease;
-        user-select: none;
     }
-    button:hover {
-        background-color: #b0325a;
-    }
-    button:focus {
-        outline: none;
-    }
-    button .ripple {
+
+    .file-input-wrapper input[type=file] {
+        font-size: 100px;
         position: absolute;
-        border-radius: 50%;
-        transform: scale(0);
-        animation: rippleEffect 0.6s linear;
-        background-color: rgba(255,255,255,0.7);
-        pointer-events: none;
+        left: 0;
+        top: 0;
+        opacity: 0;
+        cursor: pointer;
     }
-    @keyframes rippleEffect {
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
+
+    .custom-file-btn {
+        background: #fff0f6;
+        color: var(--primary);
+        padding: 15px 20px;
+        border-radius: 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border: 2px dashed var(--primary);
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .custom-file-btn:hover {
+        background: #ffe0eb;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 40px;
+    }
+
+    .btn-submit {
+        flex: 2;
+        justify-content: center;
     }
 
     .btn-cancel {
-        display: block;
-        margin: 20px auto 0 auto;
-        width: 100%;
-        padding: 14px 0;
-        border-radius: 12px;
-        font-weight: 600;
-        color: #a63d68;
-        text-align: center;
-        text-decoration: none;
-        border: 2px solid #f7c6d0;
-        background-color: #fff0f6;
-        transition: all 0.3s ease;
-        user-select: none;
-    }
-    .btn-cancel:hover {
-        color: #d43e6f;
-        border-color: #d43e6f;
-        background-color: #ffe3f0;
+        flex: 1;
+        justify-content: center;
+        background: #f5f5f5;
+        color: #888;
     }
 
-    /* Responsive adjustments */
-    @media (max-width: 480px) {
-        .form-container {
-            padding: 30px 25px 35px 25px;
-            width: 100%;
-            max-width: 100%;
-        }
-        h2 {
-            font-size: 24px;
-        }
+    .btn-cancel:hover {
+        background: #eeeeee;
+        color: #444;
     }
 </style>
-</head>
-<body>
-    <div class="form-container">
-        <h2>Tambah Resep Baru</h2>
-        <form method="POST" action="{{ route('admin.resep.store') }}" enctype="multipart/form-data">
-            @csrf
+@endsection
 
-            <label for="nama">Nama Makanan:</label>
-            <input type="text" id="nama" name="nama" value="{{ old('nama') }}" required autofocus>
-
-            <label for="asal_negara">Asal Negara:</label>
-            <input type="text" id="asal_negara" name="asal_negara" value="{{ old('asal_negara') }}" required>
-
-            <label for="pencipta">Pencipta:</label>
-            <input type="text" id="pencipta" name="pencipta" value="{{ old('pencipta') }}" required>
-
-            <label for="cara_membuat">Cara Membuat:</label>
-            <textarea id="cara_membuat" name="cara_membuat" required>{{ old('cara_membuat') }}</textarea>
-
-            <label for="link_youtube">Link YouTube:</label>
-            <input type="url" id="link_youtube" name="link_youtube" value="{{ old('link_youtube') }}">
-
-            <label for="gambar">Gambar:</label>
-            <input type="file" id="gambar" name="gambar" accept="image/*" required>
-
-            <button type="submit">Simpan Resep</button>
-            <a href="{{ route('admin.dashboard') }}" class="btn-cancel">Batal</a>
-        </form>
+@section('content')
+<div class="form-card">
+    <div style="text-align: center; margin-bottom: 40px;">
+        <h2 style="font-size: 2rem; font-weight: 800; color: var(--text-main); margin: 0;">Tambah Resep</h2>
+        <p style="color: #888; margin-top: 5px;">Bagikan keajaiban kuliner baru dengan dunia</p>
     </div>
 
-    <script>
-    // Ripple effect on button click
-    document.querySelector('button[type="submit"]').addEventListener('click', function (e) {
-        const button = e.currentTarget;
-        const circle = document.createElement('span');
-        circle.classList.add('ripple');
-        const rect = button.getBoundingClientRect();
-        circle.style.width = circle.style.height = Math.max(rect.width, rect.height) + 'px';
-        circle.style.left = (e.clientX - rect.left - (circle.offsetWidth / 2)) + 'px';
-        circle.style.top = (e.clientY - rect.top - (circle.offsetHeight / 2)) + 'px';
-        button.appendChild(circle);
-        setTimeout(() => circle.remove(), 600);
-    });
-    </script>
-</body>
-</html>
+    <form method="POST" action="{{ route('admin.resep.store') }}" enctype="multipart/form-data">
+        @csrf
+
+        <div class="form-group">
+            <label for="nama">Nama Makanan</label>
+            <input type="text" id="nama" name="nama" class="form-control" value="{{ old('nama') }}" placeholder="Contoh: Sushi Roll" required autofocus>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+                <label for="asal_negara">Asal Negara</label>
+                <input type="text" id="asal_negara" name="asal_negara" class="form-control" value="{{ old('asal_negara') }}" placeholder="Contoh: Jepang" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pencipta">Pencipta</label>
+                <input type="text" id="pencipta" name="pencipta" class="form-control" value="{{ old('pencipta') }}" placeholder="Nama Anda atau Chef" required>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="cara_membuat">Cara Membuat</label>
+            <textarea id="cara_membuat" name="cara_membuat" class="form-control" placeholder="Tuliskan langkah-langkah memasak di sini..." required>{{ old('cara_membuat') }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="link_youtube">Link Tutorial YouTube (Opsional)</label>
+            <input type="url" id="link_youtube" name="link_youtube" class="form-control" value="{{ old('link_youtube') }}" placeholder="https://youtube.com/watch?v=...">
+        </div>
+
+        <div class="form-group">
+            <label>Gambar Makanan</label>
+            <div class="file-input-wrapper">
+                <div class="custom-file-btn" id="file-label">
+                    <span>📁 Pilih Foto Makanan Terbaik</span>
+                </div>
+                <input type="file" id="gambar" name="gambar" accept="image/*" required onchange="updateFileName(this)">
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <a href="{{ route('admin.dashboard') }}" class="btn btn-cancel">Batal</a>
+            <button type="submit" class="btn btn-primary btn-submit">Simpan Resep Baru</button>
+        </div>
+    </form>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+    function updateFileName(input) {
+        const label = document.getElementById('file-label');
+        if (input.files && input.files.length > 0) {
+            label.innerHTML = `<span>✅ ${input.files[0].name}</span>`;
+            label.style.borderColor = '#48bb78';
+            label.style.background = '#f0fff4';
+            label.style.color = '#2f855a';
+        }
+    }
+</script>
+@endsection

@@ -4,186 +4,230 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@yield('title', 'Admin Dashboard')</title>
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
+        :root {
+            --primary: #ff69b4;
+            --primary-hover: #e75490;
+            --secondary: #ff99bb;
+            --bg-admin: #fff5f8;
+            --text-main: #6a1b4d;
+            --glass: rgba(255, 255, 255, 0.9);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
-            background: #ffe6f0;
-            color: #6a1b4d;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-admin);
+            color: var(--text-main);
+            min-height: 100vh;
         }
 
         header {
-            margin-bottom: 25px;
-            padding-bottom: 12px;
+            background: white;
+            padding: 20px 40px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            border-bottom: 3px solid #ff69b4;
+            box-shadow: 0 4px 20px rgba(255, 105, 180, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         header h1 {
-            color: #d6336c;
-            font-weight: 900;
-            font-size: 28px;
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.5rem;
             margin: 0;
-            letter-spacing: 1.2px;
+            letter-spacing: -0.5px;
         }
 
         nav {
             display: flex;
             align-items: center;
-            gap: 15px;
-            flex-wrap: wrap;
+            gap: 20px;
         }
 
         nav a {
-            color: #ff1493;
+            color: var(--text-main);
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 8px 18px;
-            border-radius: 30px;
-            border: 2px solid #ff69b4;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            font-weight: 600;
+            font-size: 0.95rem;
+            padding: 8px 16px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
         }
 
-        nav a:hover {
-            background-color: #ff69b4;
-            color: white;
+        nav a:hover, nav a.active {
+            background: #fff0f6;
+            color: var(--primary);
         }
 
-        form {
-            margin: 0;
-        }
-
-        .btn {
-            font-family: inherit;
-            font-weight: 700;
-            font-size: 0.9rem;
-            padding: 8px 18px;
-            border-radius: 30px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-        }
-
-        .btn-edit {
-            background-color: #ff69b4;
-            color: white;
-        }
-
-        .btn-edit:hover {
-            background-color: #e75490;
-            border-color: #e75490;
-        }
-
-        .btn-delete {
-            background-color: #ff99bb;
-            color: white;
+        .btn-logout {
+            background: #ffeff5;
+            color: #d63384;
             border: none;
-        }
-
-        .btn-delete:hover {
-            background-color: #e75490;
-        }
-
-        .btn-add {
-            background: linear-gradient(45deg, #ffc1d6, #ff69b4);
-            color: white;
-            padding: 10px 22px;
-            display: inline-block;
-            margin-bottom: 20px;
+            padding: 10px 20px;
+            border-radius: 12px;
             font-weight: 700;
-            border-radius: 30px;
-            text-decoration: none;
-            box-shadow: 0 6px 15px rgba(255, 105, 180, 0.3);
-            transition: background 0.3s ease;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .btn-add:hover {
-            background: linear-gradient(45deg, #ff69b4, #d6336c);
-            box-shadow: 0 8px 25px rgba(255, 105, 180, 0.5);
-        }
-
-        .flash-message {
-            margin-bottom: 20px;
-            padding: 14px 20px;
-            background-color: #ffd6e8;
-            color: #c71585;
-            border: 1px solid #ffaec9;
-            border-radius: 10px;
-            font-weight: 700;
-            text-align: center;
-            box-shadow: 0 3px 15px rgba(255, 105, 180, 0.15);
-            max-width: 480px;
-            margin-left: auto;
-            margin-right: auto;
+        .btn-logout:hover {
+            background: #ffe0eb;
         }
 
         main {
-            max-width: 980px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(255, 105, 180, 0.05);
+            border: 1px solid rgba(255, 105, 180, 0.1);
+        }
+
+        .flash-message {
+            background: #e6fffa;
+            color: #2c7a7b;
+            padding: 15px 25px;
+            border-radius: 16px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            text-align: center;
+            border: 1px solid #b2f5ea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Forms & Buttons */
+        .btn {
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 25px rgba(255, 105, 180, 0.4);
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 105, 180, 0.1);
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
-            background: #fff0f6;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.15);
-        }
-
-        table, th, td {
-            border: 1px solid #ffb6c1;
-        }
-
-        th, td {
-            padding: 12px 16px;
-            text-align: left;
-            font-weight: 600;
+            background: white;
         }
 
         th {
-            background: linear-gradient(90deg, #ffc0cb, #ff69b4);
-            color: white;
+            background: #fffafa;
+            color: #888;
+            font-weight: 700;
             text-transform: uppercase;
+            font-size: 0.75rem;
             letter-spacing: 1px;
-            font-size: 14px;
+            padding: 20px;
+            text-align: left;
+            border-bottom: 2px solid #fff0f6;
         }
 
         td {
-            color: #6a1b4d;
+            padding: 20px;
+            border-bottom: 1px solid #fff0f6;
+            font-weight: 500;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
         }
 
         tr:hover td {
-            background-color: #ffe6f0;
-            transition: background-color 0.3s ease;
+            background: #fff9fb;
+        }
+
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 20px;
+                flex-direction: column;
+                gap: 20px;
+            }
         }
     </style>
+    @yield('styles')
 </head>
 <body>
     <header>
-        <h1>Admin Dashboard</h1>
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" style="width: 40px; height: 40px; object-fit: contain;">
+            <h1>Admin Panel</h1>
+        </div>
         <nav>
-            <a href="{{ route('admin.dashboard') }}">Dashboard</a>
-            <form action="{{ route('admin.logout') }}" method="POST" style="display:inline;">
+            <a href="{{ route('admin.dashboard') }}" class="{{ request()->routeIs('admin.dashboard') ? 'active' : '' }}">Dashboard</a>
+            <form action="{{ route('admin.logout') }}" method="POST">
                 @csrf
-                <button type="submit" class="btn btn-delete" style="font-size: 0.9rem;">Logout</button>
+                <button type="submit" class="btn-logout">Logout</button>
             </form>
         </nav>
     </header>
 
-    @if(session('success'))
-        <div class="flash-message">
-            {{ session('success') }}
-        </div>
-    @endif
-
     <main>
+        @if(session('success'))
+            <div class="flash-message">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @yield('content')
     </main>
+
+    <footer style="text-align: center; padding: 40px 0; color: #aaa; font-size: 0.85rem; font-weight: 600;">
+        &copy; {{ date('Y') }} Resep Mancanegara. Development by Moch Alif Surya Ramadhan
+    </footer>
+
+    @yield('scripts')
 </body>
 </html>
